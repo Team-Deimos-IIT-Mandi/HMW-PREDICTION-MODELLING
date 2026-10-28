@@ -12,6 +12,8 @@ source .venv/bin/activate  # Windows: .venv\Scripts\activate
 pip install -r requirements.txt
 ```
 
+For step-by-step dataset preparation, configuration examples, stage behavior, output descriptions, estimator extension, and troubleshooting, see the [Usage Guide](docs/USAGE.md).
+
 ## Configure and train
 
 Edit `config/config.yaml`:
