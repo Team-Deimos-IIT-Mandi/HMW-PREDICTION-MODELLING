@@ -1,0 +1,75 @@
+# Update dataset.path and target_columns when the dataset is supplied.
+dataset:
+  path: data/dataset.csv
+  target_columns: [y1, y2, y3]
+  feature_columns: null # null means infer every non-target column
+  drop_columns: [case_id]
+  problem_type: regression
+
+split:
+  train: 0.70
+  validation: 0.15
+  test: 0.15
+  random_seed: 42
+
+preprocessing:
+  numeric_imputation: median
+  categorical_imputation: most_frequent
+  scale_numeric: true
+
+models:
+  random_forest:
+    enabled: true
+    params:
+      n_estimators: 300
+      max_depth: null
+      min_samples_leaf: 1
+  extra_trees:
+    enabled: true
+    params:
+      n_estimators: 300
+      max_depth: null
+      min_samples_leaf: 1
+  gradient_boosting:
+    enabled: true
+    params:
+      n_estimators: 150
+      learning_rate: 0.05
+      max_depth: 3
+  neural_network:
+    enabled: false
+    params: {}
+
+tuning:
+  enabled: false
+  method: randomized
+  n_iter: 20
+  scoring: neg_root_mean_squared_error
+  param_distributions:
+    random_forest:
+      model__n_estimators: [100, 200, 400]
+      model__max_depth: [null, 5, 10, 20]
+      model__min_samples_leaf: [1, 2, 4]
+
+cross_validation:
+  enabled: false
+  folds: 5
+  shuffle: true
+
+neural_network:
+  enabled: false
+  hidden_layers: [128, 64]
+  max_iter: 500
+  alpha: 0.0001
+
+hardware:
+  device: cpu # sklearn models use CPU
+  n_jobs: -1
+
+outputs:
+  root: outputs
+  models: outputs/models
+  metrics: outputs/metrics
+  plots: outputs/plots
+  logs: outputs/logs
+  artifacts: outputs/artifacts
